@@ -7,7 +7,7 @@ Created on 2019年1月20日
 import urllib2, cookielib
 
 class Downloader(object):
-    cookieStr = 'Hm_lvt_60bad21af9c824a4a0530d5dbf4357ca=1552563835; Hm_lvt_78c58f01938e4d85eaf619eae71b4ed1=1552563835; Hm_lvt_f79b64788a4e377c608617fba4c736e2=1552563835; Hm_lpvt_60bad21af9c824a4a0530d5dbf4357ca=1552575554; Hm_lpvt_78c58f01938e4d85eaf619eae71b4ed1=1552575554; Hm_lpvt_f79b64788a4e377c608617fba4c736e2=1552575554; v=ArbEXbaT9osYtoLvPFla7IFEB-e71_oITBouaSCeoMw2DlhRiGdKIRyrfofz'
+    cookieStr = 'Hm_lvt_60bad21af9c824a4a0530d5dbf4357ca=1552563835,1552582429; Hm_lvt_78c58f01938e4d85eaf619eae71b4ed1=1552563835,1552582429; Hm_lvt_f79b64788a4e377c608617fba4c736e2=1552563835,1552582429; Hm_lpvt_60bad21af9c824a4a0530d5dbf4357ca=1552583111; Hm_lpvt_78c58f01938e4d85eaf619eae71b4ed1=1552583111; Hm_lpvt_f79b64788a4e377c608617fba4c736e2=1552583111; v=Atelek-YR6T2pcMokOFrsxgfZkAiHKsthfEv7ykG8X4Pevk2Mew7zpXAv0A6'
     def download(self, url):
         if url is None:
             return None 

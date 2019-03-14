@@ -14,7 +14,7 @@ class Spider(object):
         self.urlParser = UrlParser.UrlParser()
         self.outputManager = OutputManager.OutputManager()
     
-    def craw(self, rootUrl, header):
+    def craw(self, rootUrl, header, fileName):
         self.urlManager.addUrl(rootUrl)
         self.outputManager.collectData(header)
         while self.urlManager.hasUrl():
@@ -26,13 +26,14 @@ class Spider(object):
                 self.outputManager.collectData(data)
             except:
                 print 'craw failed'
-                self.outputManager.output()
+                self.outputManager.output(fileName)
             
         #self.outputManager.output()
 
 spider = Spider()
-rootUrl = 'http://data.10jqka.com.cn/hgt/hgtb/'
+rootUrl = 'http://data.10jqka.com.cn/hgt/ggtb/'
 header = {}
 header[0] = u'日期'
-header[1] = u'当日资金流入(元)'
-spider.craw(rootUrl, header)
+header[1] = u'当日资金流入(港元)'
+fileName = u'港股通(沪)_最近一月.txt'
+spider.craw(rootUrl, header, fileName)
