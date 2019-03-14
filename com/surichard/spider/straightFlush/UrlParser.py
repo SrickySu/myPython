@@ -9,29 +9,33 @@ import urlparse
 from bs4 import BeautifulSoup
 
 class UrlParser(object):
+    page = 0;
     
     def parse(self, url, content):
+        self.page = 1
         if url is None or content is None:
             return
-        soup = BeautifulSoup(content, 'html.parser', from_encoding='gbk')
+        soup = BeautifulSoup(content, 'html5lib', from_encoding='GBK')
         newUrl = self._getNewUrl(url, soup)
-        newData = self._getData(url, soup)
+        newData = self._getData(soup)
         return newUrl, newData
     
     def _getNewUrl(self, url, soup):
-        newUrls = set()
-        links = soup.find_all('a', href=re.compile(r"/item/.*/\d+"))
-        print 'length of links is', len(links)
-        for link in links:
-            newUrl = link['href']
-            newUrls.add(urlparse.urljoin(url, newUrl))
-        return newUrls
+        nextPage = soup.find('div', targetid='table1').find('a', text='下一页')
+        if nextPage is not None:
+            self.page += 1
+            backUrl = 'board/getHgtPage/page/' + self.page.__str__() + '/ajax/1/'
+            return urlparse.urljoin(url, backUrl)
+        return
     
-    def _getData(self, url, soup):
-        newData = {}
-        newData['url'] = url
-        newData['title'] = soup.find('dd', class_="lemmaWgt-lemmaTitle-title").find('h1').get_text()
-        newData['summary'] = soup.find('div', class_="lemma-summary").find('div').get_text()
+    def _getData(self, soup):
+        newData = []
+        trTags = soup.find('div', id="table1").find('tbody').find_all('tr')
+        for tr in trTags:
+            data = {}
+            data[0] = tr.find_all('td')[0].string
+            data[1] = tr.find_all('td')[1].string
+            newData.append(data)
         return newData
     
 
